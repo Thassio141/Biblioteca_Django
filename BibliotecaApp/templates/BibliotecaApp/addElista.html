@@ -1,0 +1,57 @@
+{% extends 'BibliotecaApp/base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">Adicionar Livro</h4>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" class="btn btn-success" value="Add">
+        </form>
+    </div>
+
+    <div class="col-sm-8">
+        <h4 class="text-center alert alert-info">Lista de Livros</h4>
+        {% if livro %}
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Descricao</th>
+                        <th scope="col">Genero</th>
+                        <th scope="col">Qtd Livros</th>
+                        <th scope="col">Data Lançamento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for livr in livro %}
+                        <tr>
+                            
+                            <th scope="row">{{livr.id}}</th>
+                            <td>{{livr.titulo}}</td>
+                            <td>{{livr.autor}}</td>
+                            <td>{{livr.genero}}</td>
+                            <td>{{livr.qntd_livro}}</td>
+                            <td>{{livr.data_lancamento}}</td>
+                            <td>
+                                <a href="{% url 'updatedata' livr.id %}" class="btn btn-warning btn-sm">Editar</a>
+                                <form action="{% url 'delete' livr.id %}" method="post" class="d-inline"> {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+            <div class="col-sm-4">
+                <a href="{% url 'logout' %} " class="btn btn-danger">logout</a>
+            </div>
+        {% else %}
+            <h4 class="text-center alert alert-warning">Sem livros</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
