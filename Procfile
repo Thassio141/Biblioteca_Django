@@ -1,1 +1,3 @@
-web: python Biblioteca/manage.py runserver 127.0.0.1:8000
+web: gunicorn Biblioteaca.wsgi:application --log-file - --log-level debug
+python manage.py collectstatic --noinput
+manage.py migrate
