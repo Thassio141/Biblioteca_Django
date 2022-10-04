@@ -1,0 +1,51 @@
+{% extends 'BibliotecaApp/base.html' %}
+{% block content %}
+<div class="row">
+    <!--
+    <div class="col-sm-4">
+        <a href="{% url 'logout' %} " class="btn btn-danger">logout</a>
+    </div>-->
+    <div class="col-sm-12">
+        <h4 class="text-center alert alert-info">Lista de Livros</h4>
+        {% if livro %}
+            
+                <tbody>
+                    {% for livr in livro %}
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#{{livr.slug}}" aria-expanded="true" aria-controls="{{livr.slug}}">
+                                <td>{{livr.titulo}}</td>
+                            </button>
+                          </h2>
+                          <div id="{{livr.slug}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="/media/{{livr.imagem}}" style="width:70%">
+                                    </div>
+                                    <div class="col-9">
+                                        <h6><b>Título:</b> {{livr.titulo}}</h6>
+                                        <h6><b>Autor:</b> {{livr.autor}}</h6>
+                                        <h6><b>Gênero:</b> {{livr.genero}}</h6>
+                                        <h6><b>Data de lançamento:</b> {{livr.data_lancamento|date:"d/m/Y"}}</h6>
+                                        <h6><b>Disponibilidade:</b> {{livr.qntd_livro}} livro(s)</h6>
+                                        <p><b>Descrição da obra:</b> {{livr.descricao}}</p>
+                                        <a href="alugar/{{livr.id}}" class="btn btn-warning btn-sm">Alugar</a>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        {% else %}
+            <h4 class="text-center alert alert-warning">Sem livros</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}
